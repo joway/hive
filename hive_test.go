@@ -12,8 +12,15 @@ import (
 func TestHive(t *testing.T) {
 	h, err := New(
 		WithSize(10),
+		WithMinIdle(1),
+		WithMaxIdle(10),
+		WithMinIdleTime(time.Minute),
 	)
 	assert.NoError(t, err)
+	defer func() {
+		err := h.Close()
+		assert.NoError(t, err)
+	}()
 
 	var last int32 = 0
 	var wg sync.WaitGroup
@@ -44,6 +51,10 @@ func TestHiveWithNonblocking(t *testing.T) {
 		WithNonblocking(true),
 	)
 	assert.NoError(t, err)
+	defer func() {
+		err := h.Close()
+		assert.NoError(t, err)
+	}()
 
 	for i := int32(0); i < int32(h.Size); i++ {
 		err := h.Submit(context.Background(), func() {
