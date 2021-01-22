@@ -1,4 +1,8 @@
 # Hive
+![GitHub release](https://img.shields.io/github/tag/joway/hive.svg?label=release)
+[![Go Report Card](https://goreportcard.com/badge/github.com/joway/hive)](https://goreportcard.com/report/github.com/joway/hive)
+[![codecov](https://codecov.io/gh/joway/hive/branch/master/graph/badge.svg?token=Y1YO11FZKU)](https://codecov.io/gh/joway/hive)
+[![CircleCI](https://circleci.com/gh/joway/hive.svg?style=shield)](https://circleci.com/gh/joway/hive)
 
 Hive is a high-efficiency **Goroutine Pool** based on [pond](https://github.com/joway/pond).
 
