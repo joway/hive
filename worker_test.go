@@ -3,6 +3,7 @@ package hive
 import (
 	"github.com/stretchr/testify/assert"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -29,13 +30,13 @@ func TestWorker(t *testing.T) {
 
 func TestWorkerClose(t *testing.T) {
 	w := NewWorker()
-	running := true
+	var finished atomic.Value
 	w.Submit(func() {
 		time.Sleep(time.Millisecond * 100)
 	}, func() {
-		running = false
+		finished.Store(true)
 	})
 	w.Close()
 	time.Sleep(time.Millisecond * 200)
-	assert.False(t, running)
+	assert.True(t, finished.Load().(bool))
 }
